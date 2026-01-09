@@ -23,10 +23,10 @@ export default function Home() {
     if (!auth.isAuthenticated) navigate('/auth?next=/');
   }, [auth.isAuthenticated]);
 
-  return <main>
+  return <main className=" bg-[url('/images/bg-main.svg')] ">
     <Navbar />
 
-    <section className="main-section bg-[url('/images/bg-main.svg')] ">
+    <section className="main-section">
       <div className="page-heading py-16">
         <h1>Track Your Applications & Resume Ratings</h1>
         <h2>Review your submissions and check AI-powered feedback</h2>
