@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { useParams, Link, useNavigate } from 'react-router-dom'
 import { usePuterStore } from '~/lib/puter'
+import Summary from '~/components/Summary'
+import ATS from '~/components/ATS'
+import Details from '~/components/Details'
 
 
 export function meta() {
@@ -28,7 +31,7 @@ const resumePage = () => {
 
     useEffect(() => {
         const loadResume = async () => {
-            const resume = await kv.get(`resume:${id}`);
+            const resume = await kv.get(`resume: ${id}`);
             if (!resume) return;
 
             const data = JSON.parse(resume);
@@ -68,14 +71,15 @@ const resumePage = () => {
 
             </nav>
 
-            <div className="flex flex-row w-full max-lg:flex-col-reverse">
-                <section className="feedback-section bg-[url('/images/bg-small.svg')] bg-cover h-[100vh] sticky top-0 items-center justify-center">
+            <div className="flex flex-row w-full max-lg:flex-col-reverse lg:h-[calc(100vh-73px)]">
+                {/* Left side - Fixed/Sticky Resume Image */}
+                <section className="feedback-section bg-[url('/images/bg-small.svg')] bg-cover lg:sticky lg:top-0 lg:h-screen lg:overflow-y-auto items-center justify-center">
                     {imageUrl && resumeUrl &&
                         (
-                            <div className='animate-in fade-in duration-1000 gradient-border max-sm:m-0 h-[90%] max-2xl: h-fit w-fit'>
+                            <div className='animate-in fade-in duration-1000 gradient-border max-sm:m-0 max-h-[90vh] w-full max-w-full lg:sticky lg:top-6'>
                                 <a href={resumeUrl} target='_blank' rel="noopener noreferrer">
                                     <img src={imageUrl} alt="resume image"
-                                        className='w-full h-full object-contain rounded-2xl'
+                                        className='w-full h-auto max-h-[85vh] object-contain rounded-2xl'
                                         title='resume'
                                     />
                                 </a>
@@ -85,7 +89,8 @@ const resumePage = () => {
                     }
                 </section>
 
-                <section className="feedback-section">
+                {/* Right side - Scrollable Content */}
+                <section className="feedback-section lg:overflow-y-auto lg:h-screen">
                     <h2 className='text-4xl !text-black font-bold'>Resume Review</h2>
                     {feedback ? (
                         <div className="flex flex-col gap-8 animate-in fade-in duration-1000">
